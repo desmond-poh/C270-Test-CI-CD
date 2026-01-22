@@ -1,0 +1,76 @@
+<%- include('../partials/header', { title: 'Tasks Edit' }) -%>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-white">
+                <h4 class="mb-0"><i class="fas fa-edit"></i> Edit Task</h4>
+            </div>
+            <div class="card-body">
+                <form action="/tasks/update/<%= task.id %>" method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">
+                            <i class="fas fa-heading"></i> Task Title *
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="title" 
+                               name="title" 
+                               required
+                               value="<%= task.title %>">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">
+                            <i class="fas fa-align-left"></i> Description
+                        </label>
+                        <textarea class="form-control" 
+                                  id="description" 
+                                  name="description" 
+                                  rows="4"><%= task.description %></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-eye"></i> Visibility
+                        </label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" 
+                                       type="radio" 
+                                       name="visibility" 
+                                       id="visibility_personal" 
+                                       value="personal" 
+                                       <%= task.visibility === 'personal' ? 'checked' : '' %>>
+                                <label class="form-check-label" for="visibility_personal">
+                                    <i class="fas fa-user"></i> Personal (Only you can see)
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" 
+                                       type="radio" 
+                                       name="visibility" 
+                                       id="visibility_all" 
+                                       value="for all"
+                                       <%= task.visibility === 'for all' ? 'checked' : '' %>>
+                                <label class="form-check-label" for="visibility_all">
+                                    <i class="fas fa-users"></i> For All (Everyone can see)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save"></i> Update Task
+                        </button>
+                        <a href="/tasks" class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') -%>

@@ -1,0 +1,25 @@
+<%- include('partials/header', { title: 'Server Error' }) -%>
+
+<div class="text-center py-5">
+    <div class="display-1 text-danger">
+        <i class="fas fa-exclamation-circle"></i> 500
+    </div>
+    <h1 class="display-4 mb-4">Server Error</h1>
+    <p class="lead mb-4"><%= message || 'An unexpected error occurred on our server.' %></p>
+    <div class="mb-5">
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-home"></i> Go to Homepage
+        </a>
+        <a href="/tasks" class="btn btn-outline-primary">
+            <i class="fas fa-tasks"></i> Go to Tasks
+        </a>
+    </div>
+    <div class="alert alert-warning">
+        <small>
+            <i class="fas fa-info-circle"></i> 
+            If this error persists, please contact the administrator.
+        </small>
+    </div>
+</div>
+
+<%- include('partials/footer') -%>

@@ -1,0 +1,138 @@
+<%- include('../partials/header', { title: 'Edit Profile' }) -%>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-user-edit"></i> Edit Profile</h4>
+            </div>
+            <div class="card-body">
+                <!-- ADD enctype="multipart/form-data" HERE -->
+                <form action="/users/edit-Profile" method="POST" enctype="multipart/form-data">
+                    <!-- Current Profile Picture Display -->
+                    <div class="text-center mb-4">
+                        <h5><i class="fas fa-camera"></i> Profile Picture</h5>
+                        <% if (user.profile_picture) { %>
+                            <img src="<%= user.profile_picture %>" 
+                                 alt="Current Profile" 
+                                 class="img-thumbnail mb-3"
+                                 style="width: 150px; height: 150px; object-fit: cover;">
+                        <% } else { %>
+                            <div class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center mb-3" 
+                                 style="width: 150px; height: 150px;">
+                                <i class="fas fa-user fa-3x text-white"></i>
+                            </div>
+                        <% } %>
+                        
+                        <div class="mb-3">
+                            <label for="profile_picture" class="form-label">
+                                Change Profile Picture
+                            </label>
+                            <input type="file" 
+                                   class="form-control" 
+                                   id="profile_picture" 
+                                   name="profile_picture"
+                                   accept="image/*">
+                            <div class="form-text">Max size: 5MB. Allowed: JPG, PNG, GIF</div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h5 class="mb-3"><i class="fas fa-user-cog"></i> Personal Information</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="username" class="form-label">
+                                <i class="fas fa-user"></i> Username *
+                            </label>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="username" 
+                                   name="username" 
+                                   required
+                                   value="<%= user.username %>">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">
+                                <i class="fas fa-envelope"></i> Email *
+                            </label>
+                            <input type="email" 
+                                   class="form-control" 
+                                   id="email" 
+                                   name="email" 
+                                   required
+                                   value="<%= user.email %>">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="contact_number" class="form-label">
+                            <i class="fas fa-phone"></i> Contact Number
+                        </label>
+                        <input type="tel" 
+                               class="form-control" 
+                               id="contact_number" 
+                               name="contact_number"
+                               value="<%= user.contact_number || '' %>"
+                               placeholder="+1 234 567 8900">
+                    </div>
+                    
+                    <hr>
+                    
+                    <h5 class="mb-3"><i class="fas fa-key"></i> Change Password</h5>
+                    <p class="text-muted">
+                        <small>Leave blank if you don't want to change your password</small>
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="current_password" class="form-label">
+                                <i class="fas fa-lock"></i> Current Password
+                            </label>
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="current_password" 
+                                   name="current_password"
+                                   placeholder="Enter current password">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="new_password" class="form-label">
+                                <i class="fas fa-lock"></i> New Password
+                            </label>
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="new_password" 
+                                   name="new_password"
+                                   placeholder="Enter new password">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">
+                            <i class="fas fa-lock"></i> Confirm New Password
+                        </label>
+                        <input type="password" 
+                               class="form-control" 
+                               id="confirm_password" 
+                               name="confirm_password"
+                               placeholder="Confirm new password">
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Profile
+                        </button>
+                        <a href="/profile" class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') -%>

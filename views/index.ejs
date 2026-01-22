@@ -1,0 +1,162 @@
+<%- include('partials/header', { title: 'Welcome to TaskTrack' }) -%>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/img/bg2.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .hero-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 28px 32px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #2c7be5;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 1.15rem;
+            color: #555;
+            margin-bottom: 18px;
+            font-weight: 300;
+        }
+
+        .description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .features li {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 10px;
+            padding-left: 26px;
+            position: relative;
+        }
+
+        .features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2c7be5;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .btn-container {
+            margin-top: 28px;
+        }
+
+        .login-btn {
+            display: inline-block;
+            padding: 13px 40px;
+            background: linear-gradient(135deg, #2c7be5 0%, #1a68d1 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(44, 123, 229, 0.4);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(44, 123, 229, 0.6);
+            background: linear-gradient(135deg, #1a68d1 0%, #0d4ea8 100%);
+        }
+
+        .register-link {
+            display: block;
+            margin-top: 20px;
+            color: #2c7be5;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .register-link:hover {
+            color: #1a68d1;
+            text-decoration: underline;
+        }
+    </style>
+
+    <main>
+        <div class="hero-container">
+            <h1>TaskTracker</h1>
+            <p class="tagline">Simple Task Management Made Easy</p>
+            
+            <p class="description">
+                TaskTracker helps you manage your daily work by keeping all your tasks in one place.
+                Easily track how many tasks you have, see what's completed, and stay productive.
+            </p>
+
+            <ul class="features">
+                <li>View total number of tasks at a glance</li>
+                <li>Track completed and pending tasks</li>
+                <li>Simple and clean task overview</li>
+                <li>Secure login to access your tasks</li>
+            </ul>
+
+            <div class="btn-container">
+                <a href="/login" class="login-btn">Get Started</a>
+                <a href="/register" class="register-link">Don't have an account? Register here</a>
+            </div>
+        </div>
+    </main>
+
+    

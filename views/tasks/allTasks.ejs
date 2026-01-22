@@ -1,0 +1,148 @@
+<%- include('../partials/header', { title: 'Tasks' }) -%>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-tasks"></i> My Tasks</h1>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <% if (tasks.length === 0) { %>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> No tasks found. Create your first task!
+            </div>
+        <% } else { %>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table">
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Visibility</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tasks.forEach(task => { %>
+                            <tr>
+                                <td>
+                                    <strong><%= task.title %></strong>
+                                </td>
+                                <td>
+                                    <% if (task.description && task.description.length > 50) { %>
+                                        <%= task.description.substring(0, 50) %>...
+                                    <% } else { %>
+                                        <%= task.description || 'No description' %>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if (task.visibility === 'personal') { %>
+                                        <span class="badge bg-info">
+                                            <i class="fas fa-user"></i> Personal
+                                        </span>
+                                    <% } else { %>
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-users"></i> For All
+                                        </span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <%= task.creator_name %>
+                                    <% if (task.created_by === user.id) { %>
+                                        <span class="badge bg-primary">You</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <%= new Date(task.created_at).toLocaleDateString() %>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="/tasks/view/<%= task.id %>" 
+                                           class="btn btn-outline-info" 
+                                           title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        
+                                        <% if (task.created_by === user.id || user.account_type === 'Admin') { %>
+                                            <% if (!user.is_banned) { %>
+                                                <a href="/tasks/edit/<%= task.id %>" 
+                                                   class="btn btn-outline-warning" 
+                                                   title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="/tasks/delete/<%= task.id %>" 
+                                                   class="btn btn-outline-danger" 
+                                                   title="Delete"
+                                                   onclick="return confirm('Are you sure you want to delete this task?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<!-- Task Statistics -->
+<% if (tasks.length > 0) { %>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-danger">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-tasks"></i> Total Tasks
+                    </h5>
+                    <p class="card-text display-6"><%= tasks.length %></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-users"></i> Public Tasks
+                    </h5>
+                    <p class="card-text display-6">
+                        <%= tasks.filter(t => t.visibility === 'for all').length %>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-user"></i> Personal Tasks
+                    </h5>
+                    <p class="card-text display-6">
+                        <%= tasks.filter(t => t.visibility === 'personal' && t.created_by === user.id).length %>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-user-check"></i> My Tasks
+                    </h5>
+                    <p class="card-text display-6">
+                        <%= tasks.filter(t => t.created_by === user.id).length %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<%- include('../partials/footer') -%>

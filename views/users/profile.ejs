@@ -1,0 +1,103 @@
+<%- include('../partials/header', { title: 'My Profile' }) -%>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-user-circle"></i> My Profile</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <% if (userProfile.profile_picture) { %>
+                        <img src="<%= userProfile.profile_picture %>" 
+                             alt="Profile Picture" 
+                             class="rounded-circle img-thumbnail" 
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                    <% } else { %>
+                        <div class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center" 
+                             style="width: 150px; height: 150px;">
+                            <i class="fas fa-user fa-4x text-white"></i>
+                        </div>
+                    <% } %>
+                    
+                    <h3 class="mt-3"><%= userProfile.username %></h3>
+                    <p class="text-muted">
+                        <% if (userProfile.account_type === 'Admin') { %>
+                            <span class="badge bg-danger">Administrator</span>
+                        <% } %>
+                        <span class="badge bg-info"><%= userProfile.role %></span>
+                    </p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h6><i class="fas fa-envelope"></i> Email:</h6>
+                            <p><%= userProfile.email %></p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h6><i class="fas fa-phone"></i> Contact Number:</h6>
+                            <p><%= userProfile.contact_number || 'Not provided' %></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h6><i class="fas fa-user-tag"></i> Account Type:</h6>
+                            <p><%= userProfile.account_type %></p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h6><i class="fas fa-star"></i> Role:</h6>
+                            <p><%= userProfile.role %></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h6><i class="fas fa-calendar"></i> Member Since:</h6>
+                            <p><%= new Date(userProfile.created_at).toLocaleDateString() %></p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h6><i class="fas fa-user-shield"></i> Account Status:</h6>
+                            <% if (user.is_banned) { %>
+                                <span class="badge bg-danger">Banned</span>
+                            <% } else { %>
+                                <span class="badge bg-success">Active</span>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <% if (!user.is_banned) { %>
+                        <a href="/users/edit-profile" class="btn btn-primary">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </a>
+                    <% } %>
+                    <a href="/tasks" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Tasks
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <a href="/logout" class="btn btn-outline-danger w-100">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') -%>
